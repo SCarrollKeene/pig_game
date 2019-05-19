@@ -77,8 +77,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         // Check if player won the game
         if (scores[activePlayer] >= winningScore) {
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-            document.getElementById('dice-0').style.display = 'none';
-            document.getElementById('dice-1').style.display = 'none';
+            // hide dice if player won the game
+            hideDice();
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             // set state variable to false
@@ -104,15 +104,17 @@ function nextPlayer() {
      document.querySelector('.player-1-panel').classList.toggle('active');
 
      // When player rolls a 1, hide dice again
-    document.getElementById('dice-0').style.display = 'none';
-    document.getElementById('dice-1').style.display = 'none';
+     hideDice();
 }
 
 // Pass init function into event listener so when new game btn is clicked,
 // a new game will start
 document.querySelector('.btn-new').addEventListener('click', init);
 
-// **DRY Principle** Create Function to hide the dice
+function hideDice() {
+    document.getElementById('dice-0').style.display = 'none';
+    document.getElementById('dice-1').style.display = 'none';
+}
 
 function init() {
     scores = [0, 0];
@@ -121,8 +123,7 @@ function init() {
     gamePlaying = true;
 
     // Initially hide dice
-    document.getElementById('dice-0').style.display = 'none';
-    document.getElementById('dice-1').style.display = 'none';
+    hideDice();
 
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
